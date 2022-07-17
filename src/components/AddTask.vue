@@ -48,20 +48,18 @@ export default {
       if (!this.errors.length) {
         let formData = new FormData();
         formData.append('name', this.task.name)
-
-        let tokenStr = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjU4MDE0NzI4LCJleHAiOjE2NTgwMTgzMjgsIm5iZiI6MTY1ODAxNDcyOCwianRpIjoieXo3dUJGMm1jUXEwS3diMiIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.PUvNZ-NynGmmVEV5uTTUM3VnSjp743Jb0r4giEWbGss'
-        let url = 'http://127.0.0.1:8000/api/tasks/store'
-        await axios.post(url, formData, {headers: {"Authorization": `Bearer ${tokenStr}`}}).then(response => {
-          if (response.status == 200) {
-            this.task.name = ''
-            // eslint-disable-next-line no-undef
-            toastr.success(response.data.message)
-          }
-        }).catch(error => {
-          // eslint-disable-next-line no-undef
-          toastr.error(error)
-          console.log(error)
-        })
+        await axios.post('/tasks/store', formData)
+            .then(response => {
+              if (response.status == 200) {
+                this.task.name = ''
+                // eslint-disable-next-line no-undef
+                toastr.success(response.data.message)
+              }
+            }).catch(error => {
+              // eslint-disable-next-line no-undef
+              toastr.error(error)
+              console.log(error)
+            })
       }
 
     },

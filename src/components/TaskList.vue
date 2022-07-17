@@ -20,7 +20,7 @@
               <td>{{ task.status }}</td>
               <td>
                 <router-link type="button" class="btn btn-primary mx-lg-2"
-                       :to="{name: 'EditTask', params:{id: task.id}}"
+                             :to="{name: 'EditTask', params:{id: task.id}}"
                 >Editar
                 </router-link>
 
@@ -55,10 +55,8 @@ export default {
   },
   methods: {
     async getTasks() {
-      let tokenStr = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjU4MDY0NzEyLCJleHAiOjE2NTgwNjgzMTIsIm5iZiI6MTY1ODA2NDcxMiwianRpIjoiMmlZQ2VhNjFoVVlnWGllbSIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.vnWSNY52qDygJqjJhK-2x72JxwJYtL8yiVxD8vG8lS4';
-      let url = 'http://127.0.0.1:8000/api/tasks';
 
-      await axios.get(url, {headers: {"Authorization": `Bearer ${tokenStr}`}}).then(response => {
+      await axios.get('/tasks').then(response => {
         this.tasks = response.data.tasks
 
       }).catch(error => {
@@ -66,9 +64,8 @@ export default {
       })
     },
     async deleteTask(id) {
-      let tokenStr = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjU4MDE2OTczLCJleHAiOjE2NTgwMjA1NzMsIm5iZiI6MTY1ODAxNjk3MywianRpIjoiNEQ0RjhlTTB2T3M2R0VGdCIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.xjMWPK2-RLiRD7qkiNfRXGIN37FjSPiB6SMeYfib9kg'
-      let url = 'http://127.0.0.1:8000/api/tasks/delete/'+id;
-      await axios.delete(url,{headers: {"Authorization": `Bearer ${tokenStr}`}}).then(response => {
+
+      await axios.delete('/tasks/delete/' + id).then(response => {
         if (response.status == 200) {
           // eslint-disable-next-line no-undef
           toastr.success(response.data.message)
@@ -81,9 +78,7 @@ export default {
       })
     }
   },
-  mounted() {
-    console.log('componente mountend')
-  }
+
 }
 </script>
 

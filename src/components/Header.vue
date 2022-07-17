@@ -22,6 +22,10 @@
 <!--          </li>-->
 
         </ul>
+        <div class="d-flex">
+          <router-link to="/register" class="btn btn-warning my-sm-0 mx-lg-3" >Registrar</router-link>
+          <router-link to="/login" class="btn btn-warning my-sm-0 mx-lg-3" >Login</router-link>
+        </div>
 
       </div>
     </div>
