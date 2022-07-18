@@ -66,6 +66,7 @@ export default {
             this.task.name = ''
             // eslint-disable-next-line no-undef
             toastr.success(response.data.message)
+            this.$router.push({path: '/tasks'});
           }
         }).catch(error => {
           // eslint-disable-next-line no-undef

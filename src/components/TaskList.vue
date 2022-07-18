@@ -43,6 +43,7 @@
 <script>
 import axios from 'axios';
 
+
 export default {
   name: "TaskList",
   data() {
@@ -50,6 +51,7 @@ export default {
       tasks: []
     }
   },
+
   created() {
     this.getTasks()
   },
@@ -58,26 +60,31 @@ export default {
 
       await axios.get('/tasks').then(response => {
         this.tasks = response.data.tasks
-
       }).catch(error => {
         console.log(error)
       })
     },
-    async deleteTask(id) {
 
-      await axios.delete('/tasks/delete/' + id).then(response => {
-        if (response.status == 200) {
+    async deleteTask(id) {
+      if (confirm("Você confirma que deseja apagar o registro?")) {
+        await axios.delete('/tasks/delete/' + id).then(response => {
+          if (response.status == 200) {
+            // eslint-disable-next-line no-undef
+            toastr.success(response.data.message)
+            this.getTasks()
+          }
+        }).catch(error => {
           // eslint-disable-next-line no-undef
-          toastr.success(response.data.message)
-          this.getTasks()
-        }
-      }).catch(error => {
-        // eslint-disable-next-line no-undef
-        toastr.error(error)
-        console.log(error)
-      })
+          toastr.error(error)
+          console.log(error)
+        })
+      }
+
     }
   },
+  mounted() {
+    this.getTasks()
+  }
 
 }
 </script>

@@ -1,35 +1,12 @@
+import Login from "../components/Login";
+import Register from "../components/Register";
 import TaskList from "../components/TaskList";
 import AddTask from "../components/AddTask";
 import EditTask from "../components/EditTask";
-import Login from "../components/Login";
-import Register from "../components/Register";
 import {createRouter, createWebHistory} from "vue-router";
 
+
 const routes = [
-    {
-        name: 'TaskList',
-        path: '/',
-        component: TaskList,
-        meta: {
-            auth: true
-        }
-    },
-    {
-        name: 'AddTask',
-        path: '/add-task',
-        component: AddTask,
-        meta: {
-            auth: true
-        }
-    },
-    {
-        name: 'EditTask',
-        path: '/edit-task/:id?',
-        component: EditTask,
-        meta: {
-            auth: true
-        }
-    },
     {
         name: 'Login',
         path: '/login',
@@ -46,6 +23,29 @@ const routes = [
             auth: false
         }
     },
+
+    {
+        name: 'TaskList',
+        path: '/tasks',
+        component: TaskList,
+
+    },
+    {
+        name: 'AddTask',
+        path: '/add-task',
+        component: AddTask,
+
+    },
+    {
+        name: 'EditTask',
+        path: '/edit-task/:id?',
+        component: EditTask,
+        meta: {
+            auth: true
+        }
+    },
+
+    // { path: '*', redirect: '/' }
 ];
 
 const router = createRouter({

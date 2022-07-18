@@ -68,9 +68,17 @@ export default {
         password_confirm: this.password_confirm,
       }
       await axios.post('/register', data).then(response => {
-       if (response.data.stack == 'error'){
-         this.errors.push(response.data.message)
-       }
+        if (response.data.status == 'success') {
+          // eslint-disable-next-line no-undef
+
+          this.name = '';
+          this.email = '';
+          this.password = '';
+          this.password_confirm = '';
+          // eslint-disable-next-line no-undef
+          toastr.success(response.data.message)
+          this.$router.push({path: '/login'});
+        }
 
       }).catch(error => {
         this.errors.push(error.message)

@@ -1,4 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
+const baseUrl = process.env.VUE_APP_URL_API;
+axios.defaults.baseURL = baseUrl + '/api/v1'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')

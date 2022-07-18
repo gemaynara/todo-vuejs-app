@@ -3,6 +3,9 @@
     <div class="card border-primary ">
       <div class="card-body">
         <h4 class="card-title">Login</h4>
+        <div class="alert alert-dismissible alert-danger" v-if="errors.length">
+          {{ errors }}
+        </div>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <label class="form-label mt-4">Insira as credenciais para entrar</label>
@@ -35,21 +38,24 @@ export default {
     return {
       email: '',
       password: '',
-      errors: []
+      errors: ''
     }
   },
   methods: {
     async handleSubmit() {
+      this.errors = '';
+
       await axios.post('/login', {
         email: this.email,
         password: this.password
       }).then(response => {
+        console.log(response.data.authorization.token)
         localStorage.setItem('token', response.data.authorization.token)
-        console.log(response.data.authorization)
-
+        this.$router.push(this.$route.query.redirect || '/tasks')
+        // this.$router.push({path: '/tasks'});
       }).catch(error => {
-
         console.log(error)
+        this.errors = 'Credenciais inválidas. Tente novamente!'
       })
 
     }
