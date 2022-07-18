@@ -1,3 +1,4 @@
+import Home from "../components/Home";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import TaskList from "../components/TaskList";
@@ -5,8 +6,15 @@ import AddTask from "../components/AddTask";
 import EditTask from "../components/EditTask";
 import {createRouter, createWebHistory} from "vue-router";
 
-
 const routes = [
+    {
+        name: 'Home',
+        path: '/',
+        component: Home,
+        meta: {
+            auth: false
+        }
+    },
     {
         name: 'Login',
         path: '/login',
@@ -15,6 +23,7 @@ const routes = [
             auth: false
         }
     },
+
     {
         name: 'Register',
         path: '/register',
@@ -54,3 +63,4 @@ const router = createRouter({
 
 
 export default router;
+

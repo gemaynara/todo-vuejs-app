@@ -16,7 +16,12 @@
               <label class="form-label mt-4">Nome</label>
               <input type="text" class="form-control" v-model="task.name" maxlength="255">
             </div>
-
+            <div class="form-group">
+              <label class="form-label mt-4">Situação</label>
+              <select class="form-select" v-model="task.status">
+                <option v-for="(st, idx) in statusArray" :key="idx" :value="st.name">{{ st.name }}</option>
+              </select>
+            </div>
             <button type="submit" class="btn btn-primary mt-2">Editar</button>
           </fieldset>
         </form>
@@ -34,19 +39,20 @@ export default {
     return {
       task: [],
       name: '',
-      errors: []
+      errors: [],
+      status: '',
+      statusArray: []
     }
   },
   created() {
-    this.getTaskById()
+    this.getTaskById();
   },
   methods: {
     async getTaskById() {
-
       await axios.get('/tasks/show/' + this.$route.params.id)
           .then(response => {
             this.task = response.data.task
-
+            this.getStatus(this.task.status)
           }).catch(error => {
             console.log(error)
           })
@@ -60,6 +66,7 @@ export default {
       if (!this.errors.length) {
         let formData = new FormData();
         formData.append('name', this.task.name)
+        formData.append('status', this.task.status)
 
         await axios.post('/tasks/update/' + this.$route.params.id, formData).then(response => {
           if (response.status == 200) {
@@ -74,6 +81,21 @@ export default {
           console.log(error)
         })
       }
+    },
+    getStatus(status) {
+      this.statusArray = [];
+      if (status == 'Pendente') {
+        this.statusArray = [
+          {'id': 2, 'name': 'Em Andamento'},
+          {'id': 3, 'name': 'Finalizado'},
+        ]
+      }
+      if (status == 'Em Andamento') {
+        this.statusArray = [
+          {'id': 3, 'name': 'Finalizado'},
+        ]
+      }
+
     }
   }
 }
