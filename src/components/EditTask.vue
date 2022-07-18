@@ -19,7 +19,7 @@
             <div class="form-group">
               <label class="form-label mt-4">Situação</label>
               <select class="form-select" v-model="task.status">
-                <option v-for="(st, idx) in statusArray" :key="idx" :value="st.name">{{ st.name }}</option>
+                <option v-for="(st, idx) in statusArray" :key="idx" :value="st.name" >{{ st.name }}</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary mt-2">Editar</button>
@@ -40,7 +40,7 @@ export default {
       task: [],
       name: '',
       errors: [],
-      status: '',
+      status: null,
       statusArray: []
     }
   },

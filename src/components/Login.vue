@@ -41,24 +41,35 @@ export default {
       errors: ''
     }
   },
+  created() {
+    axios.get('/me').then(response => {
+          if (response.data.user) {
+            this.$router.push({path: '/tasks'});
+          }
+        }
+    ).catch(error => {
+      console.log(error)
+    })
+
+  },
   methods: {
     async handleSubmit() {
       this.errors = '';
-
       await axios.post('/login', {
         email: this.email,
         password: this.password
       }).then(response => {
-        console.log(response.data.authorization.token)
         localStorage.setItem('token', response.data.authorization.token)
-        this.$router.push(this.$route.query.redirect || '/tasks')
-        // this.$router.push({path: '/tasks'});
+        this.isLogged = true
+        // this.$router.push('/tasks');
+        window.location.href = 'tasks';
       }).catch(error => {
         console.log(error)
         this.errors = 'Credenciais inválidas. Tente novamente!'
       })
 
-    }
+    },
+
   }
 }
 </script>

@@ -1,24 +1,27 @@
-# app-todo-vue
+<h1 align="center"> Gestão de usuários e lista de tarefas </h1>
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+## 🛠️ Para rodar o projeto
+
+Instale as dependências
+```bash
+npm install 
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+Em seguida 
+```bash
+npm run serve  
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Acessar o app na url
+
+[http://localhost:8080/](http://localhost:8080/)
+
+## Funcionalidades 
+
+- `Tarefas`: Inserir, alterar ou remover uma tarefa.
+- `Usuários`: Inserir, alterar ou remover um usuário.
+
+## Autor
+
+ [<img src="https://avatars.githubusercontent.com/u/45495061?v=4" width=115><br><sub>Geanne Santos</sub>](https://github.com/gemaynara) 

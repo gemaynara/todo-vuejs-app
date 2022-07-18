@@ -2,30 +2,35 @@
   <div class="container-fluid justify-content-center col-12 mt-5">
     <div class="card border-primary ">
       <div class="card-body">
-        <h4 class="card-title">Lista de Tarefas</h4>
+        <h4 class="card-title">Lista de Usuários</h4>
         <div class="row">
           <table class="table table-hover table-responsive">
             <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Tarefa</th>
-              <th scope="col">Situação</th>
+              <th scope="col">Nome</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">Admin?</th>
               <th scope="col">Ações</th>
             </tr>
             </thead>
-            <tbody v-for="task  in tasks" :key="task.id">
+            <tbody v-for="user in users" :key="user.id">
             <tr>
-              <th scope="row">{{ task.id }}</th>
-              <td>{{ task.name }}</td>
-              <td>{{ task.status }}</td>
+              <th scope="row">{{ user.id }}</th>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span class="badge bg-success" v-if="user.is_admin">Sim</span>
+                <span class="badge bg-danger" v-else>Não</span>
+
+              </td>
               <td>
                 <router-link type="button" class="btn btn-primary mx-lg-2"
-                             :to="{name: 'EditTask', params:{id: task.id}}"
-                >Editar
+                             :to="{name: 'EditUser', params:{id: user.id}}">Editar
                 </router-link>
 
                 <button type="button" class="btn btn-danger"
-                        @click.prevent="deleteTask(task.id)"
+                        @click.prevent="deleteUser(user.id)"
                 >Remover
                 </button>
               </td>
@@ -41,37 +46,33 @@
 </template>
 
 <script>
-import axios from 'axios';
-
+import axios from "axios";
 
 export default {
-  name: "TaskList",
+  name: "UserList",
   data() {
     return {
-      tasks: []
+      users: []
     }
   },
-
   created() {
-    this.getTasks()
+    this.getUsers()
   },
   methods: {
-
-    async getTasks() {
-      await axios.get('/tasks').then(response => {
-        this.tasks = response.data.tasks
+    async getUsers() {
+      await axios.get('/users').then(response => {
+        this.users = response.data.users
       }).catch(error => {
         console.log(error)
       })
     },
-
-    async deleteTask(id) {
+    async deleteUser(id) {
       if (confirm("Você confirma que deseja apagar o registro?")) {
-        await axios.delete('/tasks/delete/' + id).then(response => {
+        await axios.delete('/users/delete/' + id).then(response => {
           if (response.status == 200) {
             // eslint-disable-next-line no-undef
             toastr.success(response.data.message)
-            this.getTasks()
+            this.getUsers()
           }
         }).catch(error => {
           // eslint-disable-next-line no-undef
@@ -79,13 +80,8 @@ export default {
           console.log(error)
         })
       }
-
     }
-  },
-  mounted() {
-    this.getTasks()
   }
-
 }
 </script>
 

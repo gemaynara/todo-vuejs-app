@@ -1,16 +1,19 @@
-import Home from "../components/Home";
+
 import Login from "../components/Login";
 import Register from "../components/Register";
 import TaskList from "../components/TaskList";
 import AddTask from "../components/AddTask";
 import EditTask from "../components/EditTask";
 import {createRouter, createWebHistory} from "vue-router";
+import UserList from "@/components/UserList";
+import AddUser from "@/components/AddUser";
+import EditUser from "@/components/EditUser";
 
 const routes = [
     {
         name: 'Home',
         path: '/',
-        component: Home,
+        component: Login,
         meta: {
             auth: false
         }
@@ -49,6 +52,31 @@ const routes = [
         name: 'EditTask',
         path: '/edit-task/:id?',
         component: EditTask,
+        meta: {
+            auth: true
+        }
+    },
+
+    {
+        name: 'UserList',
+        path: '/users',
+        component: UserList,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        name: 'AddUser',
+        path: '/add-user',
+        component: AddUser,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        name: 'EditUser',
+        path: '/edit-user/:id?',
+        component: EditUser,
         meta: {
             auth: true
         }
