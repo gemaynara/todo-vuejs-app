@@ -19,22 +19,22 @@
 
             <div class="form-group">
               <label class="form-label mt-4">E-mail</label>
-              <input type="email" class="form-control" v-model="user.email" >
+              <input type="email" class="form-control" v-model="user.email">
             </div>
 
             <div class="form-group">
               <label class="form-label mt-4">Senha</label>
-              <input type="password" class="form-control" v-model="user.password" >
+              <input type="password" class="form-control" v-model="user.password">
             </div>
 
             <div class="form-group">
               <label class="form-label mt-4">Repita a Senha</label>
-              <input type="password" class="form-control" v-model="user.password_confirm" >
+              <input type="password" class="form-control" v-model="user.password_confirm">
             </div>
 
             <div class="form-group">
-              <label  class="form-label mt-4">Usuário administrador?</label>
-              <select class="form-select"  v-model="user.is_admin">
+              <label class="form-label mt-4">Usuário administrador?</label>
+              <select class="form-select" v-model="user.is_admin">
                 <option value="1">Sim</option>
                 <option value="0">Não</option>
 
@@ -80,6 +80,9 @@ export default {
       }
       if (!this.user.password_confirm) {
         this.errors.push("O campo confirmação senha é obrigatório")
+      }
+      if (this.user.password !== this.user.password_confirm) {
+        this.errors.push("Os campos senha e confirmação senha não coincidem")
       }
       if (!this.user.is_admin) {
         this.errors.push("O campo admin é obrigatório")

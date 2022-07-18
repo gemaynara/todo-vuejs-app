@@ -1,13 +1,13 @@
-
 import Login from "../components/Login";
 import Register from "../components/Register";
 import TaskList from "../components/TaskList";
 import AddTask from "../components/AddTask";
 import EditTask from "../components/EditTask";
+import UserList from "../components/UserList";
+import AddUser from "../components/AddUser";
+import EditUser from "../components/EditUser";
 import {createRouter, createWebHistory} from "vue-router";
-import UserList from "@/components/UserList";
-import AddUser from "@/components/AddUser";
-import EditUser from "@/components/EditUser";
+
 
 const routes = [
     {

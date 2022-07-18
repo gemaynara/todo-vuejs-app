@@ -17,6 +17,14 @@ Acessar o app na url
 
 [http://localhost:8080/](http://localhost:8080/)
 
+
+### 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [VueJS](https://vuejs.org/)
+
+
 ## Funcionalidades 
 
 - `Tarefas`: Inserir, alterar ou remover uma tarefa.

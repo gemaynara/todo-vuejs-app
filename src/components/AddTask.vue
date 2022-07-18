@@ -18,10 +18,15 @@
             </div>
 
             <div class="form-group">
-              <label  class="form-label mt-4">Situação</label>
-              <select class="form-select"  v-model="task.actual_status">
-                <option value="" selected>Selecione</option>
-                <option v-for="(st, idx) in status" :key="idx" :value="st.name">{{st.name}}</option>
+              <label class="form-label mt-4">Data de Conclusão</label>
+              <input type="date" class="form-control" v-model="task.finished_at">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label mt-4">Situação</label>
+              <select class="form-select" v-model="task.actual_status">
+                <option :value="selecione">Selecione</option>
+                <option v-for="(st, idx) in status" :key="idx" :value="st.name">{{ st.name }}</option>
               </select>
             </div>
 
@@ -42,7 +47,8 @@ export default {
     return {
       task: [],
       name: '',
-      actual_status: null,
+      finished_at: '',
+      actual_status: 'selecione',
       errors: [],
       status: [
         {'id': 1, 'name': 'Pendente'},
@@ -58,7 +64,10 @@ export default {
       if (!this.task.name) {
         this.errors.push("O campo nome é obrigatório")
       }
-      if (!this.task.actual_status) {
+      if (this.task.actual_status==='selecione') {
+        this.errors.push("O campo situação é obrigatório")
+      }
+      if (!this.task.finished_at) {
         this.errors.push("O campo situação é obrigatório")
       }
 
@@ -66,11 +75,13 @@ export default {
         let formData = new FormData();
         formData.append('name', this.task.name)
         formData.append('status', this.task.actual_status)
+        formData.append('finished_at', this.task.finished_at)
         await axios.post('/tasks/store', formData)
             .then(response => {
               if (response.status == 200) {
                 this.task.name = ''
                 this.task.actual_status = 1
+                this.task.finished_at = ''
                 // eslint-disable-next-line no-undef
                 toastr.success(response.data.message)
                 this.$router.push({path: '/tasks'});

@@ -79,7 +79,24 @@ export default {
     },
     async updateUser() {
       this.errors = [];
-
+      if (!this.user.name) {
+        this.errors.push("O campo nome é obrigatório")
+      }
+      if (!this.user.email) {
+        this.errors.push("O campo e-mail é obrigatório")
+      }
+      if (!this.user.password) {
+        this.errors.push("O campo senha é obrigatório")
+      }
+      if (!this.user.password_confirm) {
+        this.errors.push("O campo confirmação senha é obrigatório")
+      }
+      if (this.user.password !== this.user.password_confirm) {
+        this.errors.push("Os campos senha e confirmação senha não coincidem")
+      }
+      if (!this.user.is_admin) {
+        this.errors.push("O campo admin é obrigatório")
+      }
       if (!this.errors.length) {
         let formData = new FormData();
         formData.append('name', this.user.name)

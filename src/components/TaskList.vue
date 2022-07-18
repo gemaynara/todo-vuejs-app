@@ -9,6 +9,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Tarefa</th>
+              <th scope="col">Data de Conclusão</th>
               <th scope="col">Situação</th>
               <th scope="col">Ações</th>
             </tr>
@@ -17,6 +18,7 @@
             <tr>
               <th scope="row">{{ task.id }}</th>
               <td>{{ task.name }}</td>
+              <td>{{ task.finished_at }}</td>
               <td>{{ task.status }}</td>
               <td>
                 <router-link type="button" class="btn btn-primary mx-lg-2"

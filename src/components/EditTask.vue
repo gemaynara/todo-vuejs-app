@@ -17,9 +17,13 @@
               <input type="text" class="form-control" v-model="task.name" maxlength="255">
             </div>
             <div class="form-group">
+              <label class="form-label mt-4">Data de Conclusão</label>
+              <input type="date" class="form-control" v-model="task.finished_at">
+            </div>
+            <div class="form-group">
               <label class="form-label mt-4">Situação</label>
               <select class="form-select" v-model="task.status">
-                <option v-for="(st, idx) in statusArray" :key="idx" :value="st.name" >{{ st.name }}</option>
+                <option v-for="(st, idx) in statusArray" :key="idx" :value="st.name">{{ st.name }}</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary mt-2">Editar</button>
@@ -40,7 +44,8 @@ export default {
       task: [],
       name: '',
       errors: [],
-      status: null,
+      status: '',
+      finished_at: '',
       statusArray: []
     }
   },
@@ -62,15 +67,21 @@ export default {
       if (!this.task.name) {
         this.errors.push("O campo nome é obrigatório")
       }
+      if (!this.task.status) {
+        this.errors.push("O campo situação é obrigatório")
+      }
 
       if (!this.errors.length) {
         let formData = new FormData();
         formData.append('name', this.task.name)
         formData.append('status', this.task.status)
+        formData.append('finished_at', this.task.finished_at)
 
         await axios.post('/tasks/update/' + this.$route.params.id, formData).then(response => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             this.task.name = ''
+            this.task.status = ''
+            this.task.finished_at = ''
             // eslint-disable-next-line no-undef
             toastr.success(response.data.message)
             this.$router.push({path: '/tasks'});
@@ -84,14 +95,16 @@ export default {
     },
     getStatus(status) {
       this.statusArray = [];
-      if (status == 'Pendente') {
+      if (status === 'Pendente') {
         this.statusArray = [
+          {'id': 1, 'name': 'Pendente'},
           {'id': 2, 'name': 'Em Andamento'},
           {'id': 3, 'name': 'Finalizado'},
         ]
       }
-      if (status == 'Em Andamento') {
+      if (status === 'Em Andamento') {
         this.statusArray = [
+          {'id': 2, 'name': 'Em Andamento'},
           {'id': 3, 'name': 'Finalizado'},
         ]
       }
