@@ -1,5 +1,19 @@
 <h1 align="center"> Gestão de usuários e lista de tarefas </h1>
 
+[Live Demo](https://todolist-app-vue.herokuapp.com/)
+
+> **Acesso admin:**
+>
+> **email**: admin@admin.com
+>
+> **senha**: secret
+
+> **Acesso não admin:**
+>
+> **email**: user@user.com
+>
+> **senha**: secret
+
 
 ## 🛠️ Para rodar o projeto
 
