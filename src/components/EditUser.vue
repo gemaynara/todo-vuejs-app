@@ -109,11 +109,12 @@ export default {
         formData.append('is_admin', this.user.is_admin)
 
         await axios.post('/users/update/' + this.$route.params.id, formData).then(response => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             this.user.name = ''
             this.user.email = ''
             this.user.password = ''
             this.user.password_confirm = ''
+            this.user.is_admin = null
             // eslint-disable-next-line no-undef
             toastr.success(response.data.message)
             this.$router.push({path: '/users'});
