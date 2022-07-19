@@ -61,47 +61,49 @@ export default {
   methods: {
     async handleSubmit() {
       this.errors = [];
+
+      if (!this.name) {
+        this.errors.push("O campo nome é obrigatório")
+      }
+      if (!this.email) {
+        this.errors.push("O campo e-mail é obrigatório")
+      }
+      if (!this.password) {
+        this.errors.push("O campo senha é obrigatório")
+      }
+      if (!this.password_confirm) {
+        this.errors.push("O campo confirmação senha é obrigatório")
+      }
+      if (this.password.length < 4) {
+        this.errors.push("O campo senha deve ter no mínimo 4 caracteres")
+      }
+      if (this.password !== this.password_confirm) {
+        this.errors.push("Os campos senha e confirmação senha não coincidem")
+      }
       const data = {
         name: this.name,
         email: this.email,
         password: this.password,
         password_confirm: this.password_confirm,
       };
-      if (!this.user.name) {
-        this.errors.push("O campo nome é obrigatório")
-      }
-      if (!this.user.email) {
-        this.errors.push("O campo e-mail é obrigatório")
-      }
-      if (!this.user.password) {
-        this.errors.push("O campo senha é obrigatório")
-      }
-      if (!this.user.password_confirm) {
-        this.errors.push("O campo confirmação senha é obrigatório")
-      }
-      if (this.password.length < 4) {
-        this.errors.push("O campo senha deve ter no mínimo 4 caracteres")
-      }
-      if (this.user.password !== this.user.password_confirm) {
-        this.errors.push("Os campos senha e confirmação senha não coincidem")
-      }
+      if (!this.errors.length) {
+        await axios.post('/register', data).then(response => {
+          if (response.data.status === 'success') {
 
-      await axios.post('/register', data).then(response => {
-        if (response.data.status === 'success') {
+            this.name = '';
+            this.email = '';
+            this.password = '';
+            this.password_confirm = '';
+            // eslint-disable-next-line no-undef
+            toastr.success(response.data.message)
+            this.$router.push({path: '/login'});
+          }
 
-          this.name = '';
-          this.email = '';
-          this.password = '';
-          this.password_confirm = '';
-          // eslint-disable-next-line no-undef
-          toastr.success(response.data.message)
-          this.$router.push({path: '/login'});
-        }
-
-      }).catch(error => {
-        this.errors.push("Ocorreu um erro ao realizar cadastro.")
-        console.log(error)
-      })
+        }).catch(error => {
+          this.errors.push("Ocorreu um erro ao realizar cadastro.")
+          console.log(error)
+        })
+      }
     }
   }
 }
