@@ -91,7 +91,7 @@ export default {
       if (!this.user.password_confirm) {
         this.errors.push("O campo confirmação senha é obrigatório")
       }
-      if (this.password.length < 4) {
+      if (this.user.password.length < 4) {
         this.errors.push("O campo senha deve ter no mínimo 4 caracteres")
       }
       if (this.user.password !== this.user.password_confirm) {
